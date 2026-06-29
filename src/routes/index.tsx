@@ -228,18 +228,6 @@ function Index() {
                 </button>
               ))}
             </div>
-
-            {/* Micro Stats/Trust Bar */}
-            <div className="mt-12 flex items-center gap-8 md:gap-12 border-t border-border/50 pt-8">
-              {stats.slice(0, 3).map((s, i) => (
-                <div key={i}>
-                  <div className="text-2xl md:text-3xl font-bold text-primary drop-shadow-sm">
-                    {s.value}<span className="text-foreground">{s.suffix}</span>
-                  </div>
-                  <div className="text-[10px] md:text-xs text-muted-foreground uppercase tracking-wider font-semibold">{s.label}</div>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
 
