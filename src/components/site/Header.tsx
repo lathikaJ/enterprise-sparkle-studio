@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { LiloLogo } from "./Logo";
 
 const navLinks = [
   { to: "/solutions", label: "Solutions" },
@@ -25,8 +26,8 @@ export function SiteHeader() {
       <nav className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
           <div className="flex items-center gap-12">
-            <Link to="/" className="font-display text-2xl font-bold tracking-tighter text-foreground">
-              LILO<span className="text-primary">.</span>
+            <Link to="/" className="flex items-center">
+              <LiloLogo />
             </Link>
             <div className="hidden items-center gap-8 text-sm font-medium text-muted lg:flex">
               {navLinks.map((l) => (

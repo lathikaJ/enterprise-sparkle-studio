@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { LiloLogo } from "./Logo";
 
 const columns = [
   {
@@ -35,9 +36,9 @@ export function SiteFooter() {
     <footer className="border-t border-border bg-background px-6 pb-10 pt-20">
       <div className="mx-auto mb-20 grid max-w-7xl grid-cols-2 gap-12 md:grid-cols-5">
         <div className="col-span-2">
-          <div className="mb-6 font-display text-2xl font-bold tracking-tighter">
-            LILO<span className="text-primary">.</span>
-          </div>
+          <Link to="/" className="mb-6 inline-block">
+            <LiloLogo />
+          </Link>
           <p className="max-w-xs text-sm leading-relaxed text-muted">
             Architecting enterprise resilience through technical precision and autonomous systems engineering.
           </p>

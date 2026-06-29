@@ -8,18 +8,18 @@ export const Route = createFileRoute("/insights")({
   head: () => ({
     meta: [
       { title: "Insights & Case Studies — Lilo Technologies" },
-      { name: "description", content: "Field notes, research, and case studies on enterprise security, cloud architecture, and applied AI from Lilo Technologies." },
+      { name: "description", content: "Engineering write-ups, product announcements, and case studies on custom software development and remote IT support from Lilo Technologies." },
       { property: "og:title", content: "Insights & Case Studies — Lilo Technologies" },
-      { property: "og:description", content: "Enterprise field notes on security, cloud, and applied AI." },
+      { property: "og:description", content: "Case studies on custom software and remote IT support." },
     ],
   }),
   component: InsightsPage,
 });
 
 const items = [
-  { img: caseNeobank, kind: "Case Study", title: "Reducing latency by 40% for NeoBank's core ledger.", body: "A global migration to distributed architecture that saved $14M annually in cloud waste." },
-  { img: caseAerogen, kind: "Case Study", title: "Autonomous supply chain forecasting for AeroGen Global.", body: "Edge-AI deployments that predict shortages 14 days before they manifest." },
-  { img: heroLattice, kind: "Field Note", title: "The zero-trust ledger: rebuilding trust in distributed systems.", body: "How modern cryptographic primitives are changing the perimeter conversation for regulated institutions." },
+  { img: caseNeobank, kind: "Case Study", title: "Deploying our 2nd Generation Email-Console Software.", body: "Releasing a robust, feature-rich admin dashboard and email routing queue for enterprise communications." },
+  { img: caseAerogen, kind: "Case Study", title: "Establishing secure remote support for remote workers.", body: "Proactive remote monitoring, troubleshooting, and infrastructure setups for home and office staff." },
+  { img: heroLattice, kind: "Field Note", title: "The Evolution of Remote Troubleshooting and Virtual Support.", body: "Field notes on deploying secure, encrypted remote connections to resolve workstation errors on-demand directly in front of the client's eyes." },
 ];
 
 function InsightsPage() {
@@ -27,8 +27,8 @@ function InsightsPage() {
     <PageShell>
       <PageHero
         eyebrow="Insights"
-        title="Field notes from the world's most demanding systems."
-        description="Research, engineering write-ups, and engagement post-mortems from the Lilo Technologies practice."
+        title="Solutions in Action & Technical Updates"
+        description="Product announcements, engineering write-ups, and case studies from the Lilo Technologies support and software team."
       />
       <section className="mx-auto max-w-7xl px-6 pb-24">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-3">
@@ -46,4 +46,4 @@ function InsightsPage() {
       </section>
     </PageShell>
   );
-}
+}
