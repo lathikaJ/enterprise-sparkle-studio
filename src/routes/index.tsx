@@ -1,10 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { SiteHeader } from "@/components/site/Header";
 import { SiteFooter } from "@/components/site/Footer";
 import heroLattice from "@/assets/hero-lattice.jpg";
 import caseNeobank from "@/assets/case-neobank.jpg";
 import caseAerogen from "@/assets/case-aerogen.jpg";
+import heroWorkspace from "@/assets/hero-workspace.png";
+import { ShieldCheck, Cpu, Mail } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -43,51 +47,215 @@ const capabilities = [
   },
 ];
 
+const slides = [
+  {
+    id: "support",
+    badge: "Proactive Remote IT Support",
+    title: "IT problems don't take vacations.",
+    highlight: "Neither do we.",
+    description: "All Lilo plans include proactive computer maintenance, instant remote troubleshooting, and secure custom software solutions to keep your business running smoothly.",
+    image: heroWorkspace,
+    primaryCtaText: "Start Support Session",
+    primaryCtaLink: "/contact",
+    secondaryCtaText: "Our IT Solutions",
+    secondaryCtaLink: "/solutions",
+    cardTitle: "SYSTEM CRASH PREVENTED!",
+    cardDesc: "Secure remote database patch and memory leak fix successfully applied.",
+    cardFooter: "Secure remote support active",
+    cardFooterColor: "bg-emerald-600 dark:bg-emerald-500",
+    cardIconName: "cpu",
+    startX: 220,
+    startY: 180,
+    controlX: 280,
+    controlY: 180,
+    endX: 340,
+    endY: 195,
+  },
+  {
+    id: "security",
+    badge: "Real-Time Threat Defense",
+    title: "Cyber threats never sleep.",
+    highlight: "Neither does our shield.",
+    description: "Get continuous network defense, malicious link blocking, and automatic spyware removal across all your corporate computers, whether in the office or remote.",
+    image: heroLattice,
+    primaryCtaText: "Get Free Audit",
+    primaryCtaLink: "/contact",
+    secondaryCtaText: "Security Solutions",
+    secondaryCtaLink: "/solutions",
+    cardTitle: "MALWARE ATTACK BLOCKED!",
+    cardDesc: "Suspicious ransomware script intercepted and quarantined on workstation 04.",
+    cardFooter: "Real-time threat shielded",
+    cardFooterColor: "bg-red-600 dark:bg-red-500",
+    cardIconName: "shield",
+    startX: 200,
+    startY: 160,
+    controlX: 270,
+    controlY: 150,
+    endX: 340,
+    endY: 195,
+  },
+  {
+    id: "software",
+    badge: "Enterprise Email & Console",
+    title: "Manual workflows slow you down.",
+    highlight: "Lilo speeds you up.",
+    description: "With our 2nd Generation Email-Console software, your teams gain automatic queue routing, enterprise console dashboards, and custom feature modules.",
+    image: caseNeobank,
+    primaryCtaText: "Book Product Demo",
+    primaryCtaLink: "/contact",
+    secondaryCtaText: "Custom Software",
+    secondaryCtaLink: "/solutions",
+    cardTitle: "QUEUE BOT ACTIVE!",
+    cardDesc: "2nd Gen Email-Console successfully processed and sorted 1,420 incoming messages.",
+    cardFooter: "Email-Console operational",
+    cardFooterColor: "bg-blue-600 dark:bg-blue-500",
+    cardIconName: "mail",
+    startX: 250,
+    startY: 220,
+    controlX: 300,
+    controlY: 200,
+    endX: 340,
+    endY: 195,
+  }
+];
+
+function getCardIcon(name: string) {
+  switch (name) {
+    case "cpu":
+      return <Cpu className="h-5 w-5 text-slate-500 dark:text-slate-400" />;
+    case "shield":
+      return <ShieldCheck className="h-5 w-5 text-slate-500 dark:text-slate-400" />;
+    case "mail":
+      return <Mail className="h-5 w-5 text-slate-500 dark:text-slate-400" />;
+    default:
+      return <Cpu className="h-5 w-5 text-slate-500 dark:text-slate-400" />;
+  }
+}
+
 function Index() {
+  const [activeSlide, setActiveSlide] = useState(0);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setActiveSlide((prev) => (prev + 1) % slides.length);
+    }, 6000);
+    return () => clearTimeout(timer);
+  }, [activeSlide]);
+
+  const slide = slides[activeSlide];
+
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-primary/20">
       <SiteHeader />
 
       {/* Hero */}
-      <section className="mx-auto grid max-w-7xl items-center gap-16 px-6 py-20 lg:grid-cols-2 lg:py-32">
-        <div className="animate-reveal">
-          <div className="mb-6 inline-flex items-center gap-3 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-primary">
-            <span className="flex size-2 animate-pulse rounded-full bg-primary" />
-            Latest: Lilo Technologies released its 2nd Generation Email-Console software
-          </div>
-          <h1 className="mb-8 text-balance text-5xl font-bold leading-[0.95] tracking-tight lg:text-7xl">
-            IT Support & Customer Centric <span className="text-muted">Software.</span>
-          </h1>
-          <p className="mb-10 max-w-[48ch] text-lg leading-relaxed text-muted">
-            Lilo Technologies is significantly focused on providing proactive IT support and developing customer-centric software applications for our clients. We keep your business moving forward.
-          </p>
-          <div className="flex flex-wrap gap-4">
-            <Link
-              to="/solutions"
-              className="rounded-sm bg-primary px-8 py-4 font-semibold text-primary-foreground transition-transform hover:scale-[1.02] active:scale-95"
-            >
-              Our IT Solutions
-            </Link>
-            <Link
-              to="/contact"
-              className="rounded-sm border border-border px-8 py-4 font-semibold transition-colors hover:bg-foreground/5"
-            >
-              Contact Support
-            </Link>
+      <section className="relative h-screen min-h-[750px] flex items-center overflow-hidden border-b border-border">
+        {/* Background Image Slider */}
+        <div className="absolute inset-0 z-0">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeSlide}
+              initial={{ opacity: 0, scale: 1.05 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.7, ease: "easeInOut" }}
+              className="absolute inset-0 w-full h-full bg-cover bg-center"
+              style={{ backgroundImage: `url(${slide.image})` }}
+            />
+          </AnimatePresence>
+          <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/80 to-background/30 dark:from-background dark:via-background/90 dark:to-background/40"></div>
+        </div>
+
+        {/* Content Area */}
+        <div className="relative z-10 w-full px-6 max-w-7xl mx-auto">
+          <div className="max-w-2xl">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeSlide}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.35, ease: "easeInOut" }}
+              >
+                <div className="mb-6 inline-flex items-center gap-3 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-primary">
+                  <span className="flex size-2 animate-pulse rounded-full bg-primary" />
+                  {slide.badge}
+                </div>
+                
+                <h1 className="mb-6 text-balance text-5xl font-extrabold leading-[1.05] tracking-tight lg:text-7xl text-foreground">
+                  {slide.title} <span className="text-primary block">{slide.highlight}</span>
+                </h1>
+                
+                <p className="mb-10 max-w-xl text-lg md:text-xl leading-relaxed text-muted-foreground min-h-[84px]">
+                  {slide.description}
+                </p>
+                
+                <div className="flex flex-wrap gap-4 items-center">
+                  <Link
+                    to={slide.primaryCtaLink}
+                    className="rounded-full bg-primary hover:bg-primary/95 px-8 py-4 font-semibold text-primary-foreground transition-all shadow-lg hover:shadow-primary/20 text-sm hover:scale-[1.02] active:scale-95"
+                  >
+                    {slide.primaryCtaText}
+                  </Link>
+                  <Link
+                    to={slide.secondaryCtaLink}
+                    className="rounded-full border border-border hover:bg-foreground/5 px-8 py-4 font-semibold text-foreground transition-all text-sm hover:scale-[1.02] active:scale-95 bg-background/50 backdrop-blur-md"
+                  >
+                    {slide.secondaryCtaText}
+                  </Link>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Slide Indicators */}
+            <div className="mt-10 flex gap-3 items-center">
+              {slides.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setActiveSlide(i)}
+                  className="relative h-2 rounded-full overflow-hidden bg-border hover:bg-muted-foreground/30 transition-all duration-300 w-12"
+                  aria-label={`Go to slide ${i + 1}`}
+                >
+                  {activeSlide === i && (
+                    <motion.div
+                      key={`progress-${i}`}
+                      initial={{ width: "0%" }}
+                      animate={{ width: "100%" }}
+                      transition={{ duration: 6, ease: "linear" }}
+                      className="absolute inset-0 bg-primary"
+                    />
+                  )}
+                </button>
+              ))}
+            </div>
+
+            {/* Micro Stats/Trust Bar */}
+            <div className="mt-12 flex items-center gap-8 md:gap-12 border-t border-border/50 pt-8">
+              {stats.slice(0, 3).map((s, i) => (
+                <div key={i}>
+                  <div className="text-2xl md:text-3xl font-bold text-primary drop-shadow-sm">
+                    {s.value}<span className="text-foreground">{s.suffix}</span>
+                  </div>
+                  <div className="text-[10px] md:text-xs text-muted-foreground uppercase tracking-wider font-semibold">{s.label}</div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-        <div className="animate-reveal" style={{ animationDelay: "200ms" }}>
-          <div className="aspect-square w-full overflow-hidden rounded-sm shadow-2xl ring-1 ring-foreground/10">
-            <img
-              src={heroLattice}
-              alt="Lilo Technologies data infrastructure lattice"
-              width={1200}
-              height={1200}
-              className="h-full w-full object-cover"
-            />
-          </div>
+
+        {/* Animated Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50 hidden md:flex">
+          <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest">Explore</span>
+          <div className="w-px h-12 bg-gradient-to-b from-primary to-transparent"></div>
         </div>
       </section>
+
+      {/* Bottom Features Banner */}
+      <div className="border-b border-border bg-card/50 backdrop-blur-sm py-4">
+        <div className="mx-auto max-w-7xl px-6 text-center text-xs md:text-sm font-mono uppercase tracking-[0.2em] text-muted-foreground select-none">
+          Proactive Maintenance / Secure Remote Troubleshooting / Custom Software — All In One
+        </div>
+      </div>
 
       {/* Trust Stats */}
       <section className="border-y border-border bg-card">
